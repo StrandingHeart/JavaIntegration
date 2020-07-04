@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.integrate.dao.TestDAO">
+  <resultMap id="BaseResultMap" type="com.zy.integrate.domain.TestPO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="desc" jdbcType="VARCHAR" property="desc" />
+    <result column="age" jdbcType="TINYINT" property="age" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, password, desc, age
+  </sql>
+</mapper>

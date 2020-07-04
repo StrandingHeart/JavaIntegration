@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <context id="context" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <!-- 抑制警告 -->
+            <property name="suppressTypeWarnings" value="true"/>
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的所有注释 true：是 ： false:否  -->
+            <property name="suppressAllComments" value="true" />
+            <!-- 是否添加字段注释 true:是 false：否 -->
+            <property name="addRemarkComments" value="false" />
+            <property name="javaFileEncoding" value="UTF-8"/>
+        </commentGenerator>
+
+        <!-- 数据库的相关配置 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://39.106.172.154/test?useUnicode=true&amp;characterEncoding=utf8" userId="root" password="zy151203204"/>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 实体类生成的位置 -->
+        <javaModelGenerator targetPackage="com.zy.integrate.domain" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- *Mapper.xml 文件的位置 -->
+        <sqlMapGenerator targetPackage="mappers" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- Mapper DAO 接口文件的位置 -->
+        <javaClientGenerator targetPackage="com.zy.integrate.dao" targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 相关表的配置实体类名称和dao名称 -->
+        <table tableName="test" domainObjectName="TestPO" mapperName="TestDAO"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <!--<table tableName="disease_info" domainObjectName="DiseaseInfoPO" mapperName="DiseaseInfoDAO"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+    </context>
+</generatorConfiguration>
