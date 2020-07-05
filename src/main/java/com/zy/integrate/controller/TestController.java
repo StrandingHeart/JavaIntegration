@@ -1,6 +1,7 @@
 package com.zy.integrate.controller;
 
 import com.zy.integrate.domain.TestPO;
+import com.zy.integrate.service.RedisService;
 import com.zy.integrate.service.TestService;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,21 +21,24 @@ import java.util.Map;
 @RestController
 public class TestController {
 
-    @Resource
-    public StringRedisTemplate stringRedisTemplate;
+
 
     @Resource
-    public TestService testService;
+    private TestService testService;
+
+    @Resource
+    private RedisService redisService;
 
     /**
      * /test/redis
      */
     @GetMapping("/redis")
     public Map<String,String> test(){
-        stringRedisTemplate.opsForValue().set("a","zy");
-        Map<String,String> map = new HashMap<>();
-        map.put("zy",stringRedisTemplate.opsForValue().get("a"));
-        return map;
+        return this.redisService.test();
+    }
+    @GetMapping("/redis/cache")
+    public String testCache(){
+        return this.redisService.cacheRedis();
     }
 
     @GetMapping("/test")
