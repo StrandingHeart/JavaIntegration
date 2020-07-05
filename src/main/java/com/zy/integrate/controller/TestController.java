@@ -5,6 +5,7 @@ import com.zy.integrate.service.TestService;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -36,9 +37,19 @@ public class TestController {
         return map;
     }
 
-    @GetMapping("/get/test")
+    @GetMapping("/test")
     public List<TestPO> testGet(){
         this.testService.insertTest();
         return this.testService.findAll();
+    }
+
+    @GetMapping("/test/name")
+    public TestPO testGetByName(@RequestParam(name = "name") String name){
+        return this.testService.getByName(name);
+    }
+
+    @GetMapping("/test/age")
+    public List<TestPO> testGetByName(@RequestParam(name = "age") Byte age){
+        return this.testService.getByAge(age);
     }
 }

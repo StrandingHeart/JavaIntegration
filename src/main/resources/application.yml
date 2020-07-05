@@ -12,25 +12,25 @@ spring:
     username: root
     password: 12345678
     driver-class-name: com.mysql.jdbc.Driver
-jetcache:
-  statIntervalMinutes: 15
-  areaInCacheName: false
-  local:
-    default:
-      type: linkedhashmap      //本地缓存形式
-      keyConvertor: fastjson
-  remote:
-    default:
-      type: redis              //远程缓存指定redis
-      keyConvertor: fastjson
-      valueEncoder: java
-      valueDecoder: java
-      poolConfig:
-        minIdle: 5
-        maxIdle: 20
-        maxTotal: 50
-      host: 127.0.0.1
-      port: 6379
-      password: 12345678
+#jetcache:
+#  statIntervalMinutes: 15
+#  areaInCacheName: false
+#  local:
+#    default:
+#      type: linkedhashmap      //本地缓存形式
+#      keyConvertor: fastjson
+#  remote:
+#    default:
+#      type: redis              //远程缓存指定redis
+#      keyConvertor: fastjson
+#      valueEncoder: java
+#      valueDecoder: java
+#      poolConfig:
+#        minIdle: 5
+#        maxIdle: 20
+#        maxTotal: 50
+#      host: 127.0.0.1
+#      port: 6379
+#      password: 12345678
 mybatis:
-  mapper-locations: classpath:mapper/*.xml   生成的mapper.xml位置
+  mapper-locations: classpath:mappers/*.xml  # 生成的mapper.xml位置

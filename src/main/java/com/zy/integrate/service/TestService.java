@@ -28,4 +28,12 @@ public class TestService {
     public List<TestPO> findAll(){
         return this.testDAO.selectAll();
     }
+
+    public TestPO getByName(String name){
+        return this.testDAO.getByName(name);
+    }
+
+    public List<TestPO> getByAge(Byte age){
+        return this.testDAO.getByAge(age);
+    }
 }
