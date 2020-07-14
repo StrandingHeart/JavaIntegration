@@ -26,20 +26,7 @@ public class TestController {
     @Resource
     private TestService testService;
 
-    @Resource
-    private RedisService redisService;
 
-    /**
-     * /test/redis
-     */
-    @GetMapping("/redis")
-    public Map<String,String> test(){
-        return this.redisService.test();
-    }
-    @GetMapping("/redis/cache")
-    public String testCache(){
-        return this.redisService.cacheRedis();
-    }
 
     @GetMapping("/test")
     public List<TestPO> testGet(){
