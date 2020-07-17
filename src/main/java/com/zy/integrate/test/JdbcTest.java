@@ -13,7 +13,7 @@ public class JdbcTest {
         ResultSet res = null;
         try {
            Class.forName("com.mysql.cj.jdbc.Driver");
-           con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8", "root", "123456");
+           con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8", "root", "12345678");
            pre = con.prepareStatement("select * from test where id = ?");
            pre.setInt(1,1);
            res = pre.executeQuery();
