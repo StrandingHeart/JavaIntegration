@@ -16,8 +16,7 @@ use  docker
 
 docker pull redis:6.0.3
 
-docker run --name redis -d -v /Users/zhangyong/Documents/docker/redis/redis.conf:/etc/redis/redis.conf -p 6379:6379 redis:6.0.3
-(bind 0.0.0.0)
+docker run --name redis -d -e bind=0.0.0.0  -p 6379:6379 redis:6.0.3  redis-server --requirepass "12345678"
 
 docker pull mysql:8.0
 
