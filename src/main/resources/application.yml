@@ -1,6 +1,7 @@
-
 server:
   port: 8088    #springboot内置tomcat启动端口
+logging:
+  config: classpath:logback.xml
 spring:
   redis:        #redis连接
     host: 127.0.0.1
@@ -8,10 +9,14 @@ spring:
     port: 6379
     database: 0
   datasource:   #mysql连接
-    url: jdbc:mysql://127.0.0.1/test?useUnicode=true;characterEncoding=utf8
+    url: jdbc:mysql://127.0.0.1/test?useUnicode=true;characterEncoding=utf8&serverTimezone=GMT%2B8
     username: root
     password: 12345678
     driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
 #jetcache:
 #  statIntervalMinutes: 15
 #  areaInCacheName: false
