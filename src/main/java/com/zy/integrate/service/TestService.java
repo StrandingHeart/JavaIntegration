@@ -2,11 +2,13 @@ package com.zy.integrate.service;
 
 import com.zy.integrate.dao.TestDAO;
 import com.zy.integrate.domain.TestPO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
+@Slf4j
 @Service
 public class TestService {
 

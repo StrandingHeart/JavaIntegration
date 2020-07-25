@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+debug打印logback内部信息(排查logback可能会用吧)
+scan热加载,当配置文件变更时重新加载
+scanPeriod 扫描频率
+-->
+<configuration debug="false" scan="true" scanPeriod="60 seconds">
+<!--日志上下文名称-->
+    <contextName>logback</contextName>
+    <property name="log.infoPath" value="./logs/info.log"/>
+    <property name="log.errorPath" value="./logs/error.log"/>
+<!--appender是定义日志策略的节点,name指定节点名称可以被引用,class指定操控类-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+<!--临界值过滤器,输出info级别及以上的日志-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter" >
+            <level>INFO</level>
+        </filter>
+<!--日志格式%d时间格式 %-->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %level %logger{50} - %line - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+<!--fileAppender表示输出文件的时候追加,RollingFileAppender表示滚动时间策略-->
+    <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+<!--文件输出的路径-->
+        <file>${log.infoPath}</file>
+<!--TimeBasedRollingPolicy按时间策略滚动输出,如下就是按天滚动，SizeAndTimeBasedRollingPolicy是按时间和大小滚动(根据需要灵活设置，加上maxFileSize设置单文件最大大小)-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.infoPath}_%d{yyyy-MM-dd}.log</fileNamePattern>
+<!--只保留近30天的日志 -->
+            <maxHistory>30</maxHistory>
+<!--用来指定日志文件的上限大小，那么到了这个值，就会删除旧的日志 -->
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+<!--只处理INFO级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+<!--accept日志被当前过滤器处理 neutral下个过滤器处理 deny抛弃-->
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>NEUTRAL</onMismatch>
+        </filter>
+<!--warn级别的日志跟info写到同一个文件里面-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+<!--异步输出日志-->
+    <appender name ="async_info" class= "ch.qos.logback.classic.AsyncAppender">
+<!--不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+        <discardingThreshold >0</discardingThreshold>
+<!--更改默认的队列的深度,该值会影响性能.默认值为256 -->
+        <queueSize>512</queueSize>
+<!--添加附加的appender,最多只能添加一个 -->
+        <appender-ref ref ="file_info"/>
+    </appender>
+
+    <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.errorPath}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.errorPath}_%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name ="async_error" class= "ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold >0</discardingThreshold>
+        <queueSize>512</queueSize>
+        <appender-ref ref ="file_error"/>
+    </appender>
+
+    <!-- 多环境配置 使用dev环境 -->
+    <springProfile name="dev">
+        <!--root节点 全局日志级别，用来指定最基础的日志输出级别-->
+        <root level="info">
+            <appender-ref ref="console"/>
+            <appender-ref ref="async_info"/>
+            <appender-ref ref="async_error"/>
+        </root>
+    </springProfile>
+
+
+<!--logger可以指定收集某个包/类的日志-->
+    <!--<logger name="com.qm.job.executor.service.info" level="WARN" additivity="false">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </logger>-->
+
+</configuration>
