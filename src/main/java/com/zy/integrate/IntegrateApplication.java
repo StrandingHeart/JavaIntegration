@@ -5,11 +5,13 @@ import com.alicp.jetcache.anno.config.EnableMethodCache;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @MapperScan("com.zy.integrate.*")
 @EnableMethodCache(basePackages = "com.zy.integrate.service") //支持方法缓存的包
 @EnableCreateCacheAnnotation
 @SpringBootApplication
+@EnableAsync
 public class IntegrateApplication {
 
     public static void main(String[] args) {
