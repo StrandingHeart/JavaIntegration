@@ -1,5 +1,5 @@
 server:
-  port: 8088    #springboot内置tomcat启动端口
+  port: 8089    #springboot内置tomcat启动端口
 logging:
   config: classpath:logback-spring.xml  #-spring 支持配置环境
 spring:
@@ -15,25 +15,14 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   profiles:
     active: dev #指定当前配置文件为dev开发环境
-#jetcache:
-#  statIntervalMinutes: 15
-#  areaInCacheName: false
-#  local:
-#    default:
-#      type: linkedhashmap      //本地缓存形式
-#      keyConvertor: fastjson
-#  remote:
-#    default:
-#      type: redis              //远程缓存指定redis
-#      keyConvertor: fastjson
-#      valueEncoder: java
-#      valueDecoder: java
-#      poolConfig:
-#        minIdle: 5
-#        maxIdle: 20
-#        maxTotal: 50
-#      host: 127.0.0.1
-#      port: 6379
-#      password: 12345678
 mybatis:
   mapper-locations: classpath:mappers/*.xml  # 生成的mapper.xml位置
+
+elasticsearch:
+  host: 127.0.0.1
+  port: 9200
+  username: test
+  password: 12345678
+  connTimeout: 3000
+  socketTimeout: 5000
+  connectionRequestTimeout: 500
