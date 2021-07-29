@@ -4,12 +4,10 @@ import com.zy.integrate.domain.TestPO;
 import com.zy.integrate.service.RedisService;
 import com.zy.integrate.service.TestService;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +27,7 @@ public class TestController {
 
 
     @GetMapping("/test")
-    public List<TestPO> testGet(){
+    public List<TestPO> testGet(@RequestBody @Valid TestPO po){
         this.testService.insertTest();
         return this.testService.findAll();
     }
@@ -42,5 +40,11 @@ public class TestController {
     @GetMapping("/test/age")
     public List<TestPO> testGetByName(@RequestParam(name = "age") Byte age){
         return this.testService.getByAge(age);
+    }
+
+    @GetMapping("/test/test")
+    public String test(){
+        throw new IllegalArgumentException("sss");
+//        return "success";
     }
 }
