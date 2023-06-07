@@ -3,37 +3,5 @@ server:
 logging:
   config: classpath:logback-spring.xml  #-spring 支持配置环境
 spring:
-  redis:        #redis连接
-    host: 127.0.0.1
-    password: 12345678
-    port: 6379
-    database: 0
-  datasource:   #mysql连接
-    url: jdbc:mysql://127.0.0.1/test?useUnicode=true;characterEncoding=utf8&serverTimezone=GMT%2B8
-    username: root
-    password: 12345678
-    driver-class-name: com.mysql.cj.jdbc.Driver
   profiles:
     active: dev #指定当前配置文件为dev开发环境
-#jetcache:
-#  statIntervalMinutes: 15
-#  areaInCacheName: false
-#  local:
-#    default:
-#      type: linkedhashmap      //本地缓存形式
-#      keyConvertor: fastjson
-#  remote:
-#    default:
-#      type: redis              //远程缓存指定redis
-#      keyConvertor: fastjson
-#      valueEncoder: java
-#      valueDecoder: java
-#      poolConfig:
-#        minIdle: 5
-#        maxIdle: 20
-#        maxTotal: 50
-#      host: 127.0.0.1
-#      port: 6379
-#      password: 12345678
-mybatis:
-  mapper-locations: classpath:mappers/*.xml  # 生成的mapper.xml位置
