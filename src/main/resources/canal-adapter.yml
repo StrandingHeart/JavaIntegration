@@ -1,0 +1,41 @@
+server:
+  port: 8081
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+
+canal.conf:
+  mode: tcp #tcp kafka rocketMQ rabbitMQ
+  flatMessage: true
+  zookeeperHosts:
+  syncBatchSize: 1000
+  retries: 0
+  timeout:
+  accessKey:
+  secretKey:
+  consumerProperties:
+    # canal tcp consumer    --link 连接容器，所以可以用容器名称
+    canal.tcp.server.host: canal:11111
+    canal.tcp.zookeeper.hosts:
+    canal.tcp.batch.size: 500
+    canal.tcp.username:
+    canal.tcp.password:
+  srcDataSources:
+    defaultDS:
+      url: jdbc:mysql://mysql:3306/test?useUnicode=true
+      username: root
+      password: 123
+  canalAdapters:
+    - instance: example # canal instance Name or mq topic name
+      groups:
+        - groupId: g1
+          outerAdapters:
+            - name: logger
+            - name: es7
+              hosts: 172.16.27.153:9300 # 127.0.0.1:9200 for rest mode
+              properties:
+                mode: transport
+                # security.auth: test:123456 #  only used for rest mode
+                cluster.name: docker-es

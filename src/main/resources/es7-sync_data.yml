@@ -1,0 +1,15 @@
+dataSourceKey: defaultDS
+destination: example
+groupId: g1
+esMapping:
+  _index: zy_test_es
+  _id: _id
+  #  upsert: true
+  #  pk: id
+  sql: "select a.id as _id, a.name, a.business_id businessId, a.age
+        a.c_time from sync_data a
+       "
+  #  objFields:
+  #    _labels: array:;
+  #  etlCondition: "where a.c_time>={}"
+  commitBatch: 3000

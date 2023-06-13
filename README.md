@@ -70,4 +70,9 @@ docker run --name=canal -p 11111:11111 -d -v /Users/admin/Documents/self/docker/
 
 
 
+docker run --name canal-adapter -p 8081:8081 --link mysql:mysql --link canal:canal --link es:es -v /Users/admin/Documents/self/docker/canal-adapter/conf:/opt/canal-adapter/conf -d slpcat/canal-adapter:v1.1.5
+# es容器重建需要重建 canal-adapter
 
+配置文件对应 resources/canal-adapter.yml => application.yml   es7-sync_data.yml => es7/sync_data.yml
+
+es容器相关配置可以参考  feature/elasticsearch分支
