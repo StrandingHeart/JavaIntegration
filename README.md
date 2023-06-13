@@ -25,6 +25,7 @@ docker run --name mysql -d -e MYSQL_ROOT_PASSWORD=12345678 -p 3306:3306 mysql:8.
 
 docker pull elasticsearch:7.5.1
 
-docker run --name esSingle -d -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.5.1
+# 把 docker 中的配置文件cp出来 '/usr/share/elasticsearch/config'  docker cp es:/usr/share/elasticsearch/config ./
+docker run --name es -d -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -v /Users/admin/Documents/self/docker/es/config:/usr/share/elasticsearch/config -v /Users/admin/Documents/self/docker/es/data:/usr/share/elasticsearch/data elasticsearch:7.5.1
 
 curl 127.0.0.1:9200 
